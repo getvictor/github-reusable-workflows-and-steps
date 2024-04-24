@@ -14,7 +14,7 @@ on:
       # Map the workflow output(s) to job output(s)
       reusable_output:
         description: 'Output from the reusable workflow'
-        value: ${{ jobs.reusable-workflow-job.job_output }}
+        value: ${{ jobs.reusable-workflow-job.outputs.job_output }}
 
 defaults:
   run:
