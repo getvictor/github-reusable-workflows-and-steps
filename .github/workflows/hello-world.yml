@@ -19,6 +19,8 @@ jobs:
     uses: ./.github/workflows/reusable-workflow.yml
     with:
       reusable_input: "job-2-input"
+    secrets: # Can also implicitly pass the secrets with: secrets: inherit
+      HELLO_WORLD_SECRET: TERCES_DLROW_OLLEH
 
   job-3:
     needs: job-2
