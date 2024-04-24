@@ -37,4 +37,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print output
-        run: echo "reusable_output=${{ needs.job-2.outputs.reusable_output }}"
+        run: echo "reusable_output=${{ needs.job-2.outputs.job_output }}"
