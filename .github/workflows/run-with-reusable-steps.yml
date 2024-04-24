@@ -21,10 +21,12 @@ jobs:
     outputs:
       job_output: ${{ steps.reusable-steps.outputs.reusable_output }}
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Use reusable steps
         id: reusable-steps
-        # uses: ./.github/workflows/reusable-steps.yml # To use this syntax, we must have the repository checked out
-        uses: getvictor/reusable-github-actions/.github/workflows/reusable-steps.yml
+        uses: ./.github/workflows/reusable-steps.yml # To use this syntax, we must have the repository checked out
         with:
           reusable_input: "job-2-input"
         env:
