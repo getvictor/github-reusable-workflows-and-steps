@@ -16,7 +16,7 @@ jobs:
 
   job-2:
     needs: job-1
-    uses: ./.github/workflows/reusable-workflow.yml
+    uses: ./.github/workflows/reusable-workflow.yml # We do not need to check out the repository to use the reusable workflow
     with:
       reusable_input: "job-2-input"
     secrets: # Can also implicitly pass the secrets with: secrets: inherit
