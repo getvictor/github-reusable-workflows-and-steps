@@ -48,7 +48,7 @@ jobs:
       - name: Process file
         run: |
           echo "Processing file: ${{ inputs.filename }}"
-          echo "\nfile processed" >> ${{ inputs.filename }}
+          echo "file processed" >> ${{ inputs.filename }}
       - uses: actions/upload-artifact@v4
         with:
           name: output_file

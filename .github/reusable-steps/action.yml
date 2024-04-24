@@ -11,6 +11,8 @@ inputs:
   reusable_input:
     description: 'Input to the reusable workflow'
     required: true
+  filename:
+    required: true
 outputs:
   # Map the action output(s) to step output(s)
   reusable_output:
@@ -27,3 +29,7 @@ runs:
         echo "reusable_input=${{ inputs.reusable_input }}"
         echo "HELLO_WORLD_SECRET=${HELLO_WORLD_SECRET}"
         echo "step_output=${{ inputs.reusable_input }}_processed" >> $GITHUB_OUTPUT
+    - name: Process file
+      run: |
+        echo "Processing file: ${{ inputs.filename }}"
+        echo "file processed" >> ${{ inputs.filename }}
