@@ -38,6 +38,7 @@ jobs:
         uses: ./.github/reusable-steps # To use this syntax, we must have the repository checked out
         with:
           reusable_input: "job-2-input"
+          filename: "input.txt"
         env:
           HELLO_WORLD_SECRET: TERCES_DLROW_OLLEH
       - uses: actions/upload-artifact@v4
