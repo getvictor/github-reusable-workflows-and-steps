@@ -13,12 +13,19 @@ jobs:
     steps:
       - name: Print Hello World
         run: echo "Hello World"
+      - name: Create a file
+        run: echo "Hello World" > input.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: input_file
+          path: input.txt
 
   job-2:
     needs: job-1
     uses: ./.github/workflows/reusable-workflow.yml # We do not need to check out the repository to use the reusable workflow
     with:
       reusable_input: "job-2-input"
+      filename: "input.txt"
     secrets: # Can also implicitly pass the secrets with: secrets: inherit
       HELLO_WORLD_SECRET: TERCES_DLROW_OLLEH
 
@@ -28,3 +35,8 @@ jobs:
     steps:
       - name: Print output
         run: echo "reusable_output=${{ needs.job-2.outputs.reusable_output }}"
+      - uses: actions/download-artifact@v4
+        with:
+          name: output_file
+      - name: Print file content
+        run: cat input.txt

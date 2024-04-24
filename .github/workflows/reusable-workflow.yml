@@ -11,6 +11,9 @@ on:
         description: 'Input to the reusable workflow'
         required: true
         type: string
+      filename:
+        required: true
+        type: string
     secrets:
       HELLO_WORLD_SECRET:
         required: true
@@ -39,3 +42,14 @@ jobs:
           echo "reusable_input=${{ inputs.reusable_input }}"
           echo "HELLO_WORLD_SECRET=${HELLO_WORLD_SECRET}"
           echo "step_output=${{ inputs.reusable_input }}_processed" >> $GITHUB_OUTPUT
+      - uses: actions/download-artifact@v4
+        with:
+          name: input_file
+      - name: Process file
+        run: |
+          echo "Processing file: ${{ inputs.filename }}"
+          echo "\nfile processed" >> ${{ inputs.filename }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: output_file
+          path: ${{ inputs.filename }}
