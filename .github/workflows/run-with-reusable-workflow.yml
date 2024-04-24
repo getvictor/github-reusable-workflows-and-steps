@@ -1,4 +1,4 @@
-name: Run me
+name: Run with reusable workflow
 
 on:
   workflow_dispatch: # Manually trigger the workflow

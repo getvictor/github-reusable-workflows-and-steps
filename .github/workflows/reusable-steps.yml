@@ -1,0 +1,29 @@
+name: Reusable steps (AKA composite action)
+description: Demonstrate how to use reusable steps in a workflow
+# Schema: https://json.schemastore.org/github-action.json
+
+# Runs on the same runner and same work area as the main workflow.
+# No need to use 'build artifacts' to share files with the main workflow.
+# Env variables are inherited.
+# Secrets are not available -- must be passed explicitly as inputs or env vars.
+
+inputs:
+  reusable_input:
+    description: 'Input to the reusable workflow'
+    required: true
+outputs:
+  # Map the action output(s) to step output(s)
+  reusable_output:
+    description: 'Output from the reusable workflow'
+    value: ${{ steps.process-step.outputs.step_output }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Process reusable input
+      id: process-step
+      shell: bash # Must explicitly specify the shell for each step. https://github.com/orgs/community/discussions/18597
+      run: |
+        echo "reusable_input=${{ inputs.reusable_input }}"
+        echo "HELLO_WORLD_SECRET=${HELLO_WORLD_SECRET}"
+        echo "step_output=${{ inputs.reusable_input }}_processed" >> $GITHUB_OUTPUT

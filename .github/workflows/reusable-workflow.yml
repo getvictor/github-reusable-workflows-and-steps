@@ -1,5 +1,9 @@
 name: Reusable workflow
 
+# May run on a different runner than the main workflow.
+# Must use 'build artifacts' to share files with the main workflow.
+# Env variables are not inherited.
+
 on:
   workflow_call:
     inputs:

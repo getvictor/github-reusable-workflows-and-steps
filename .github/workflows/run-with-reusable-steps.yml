@@ -1,0 +1,37 @@
+name: Run with reusable steps # with composite action
+
+on:
+  workflow_dispatch: # Manually trigger the workflow
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  job-1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Hello World
+        run: echo "Hello World"
+
+  job-2:
+    needs: job-1
+    runs-on: ubuntu-latest
+    # Map the job output(s) to step output(s)
+    outputs:
+      job_output: ${{ steps.reusable-steps.outputs.reusable_output }}
+    steps:
+      - name: Use reusable steps
+        id: reusable-steps
+        uses: ./.github/workflows/reusable-steps.yml
+        with:
+          reusable_input: "job-2-input"
+        env:
+          HELLO_WORLD_SECRET: TERCES_DLROW_OLLEH
+
+  job-3:
+    needs: job-2
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print output
+        run: echo "reusable_output=${{ needs.job-2.outputs.reusable_output }}"
