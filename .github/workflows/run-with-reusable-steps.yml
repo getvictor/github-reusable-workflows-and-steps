@@ -26,7 +26,7 @@ jobs:
           fetch-depth: 0
       - name: Use reusable steps
         id: reusable-steps
-        uses: ./.github/workflows/reusable-steps.yml # To use this syntax, we must have the repository checked out
+        uses: ./.github/reusable-steps # To use this syntax, we must have the repository checked out
         with:
           reusable_input: "job-2-input"
         env:
