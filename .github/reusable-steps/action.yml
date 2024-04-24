@@ -30,6 +30,7 @@ runs:
         echo "HELLO_WORLD_SECRET=${HELLO_WORLD_SECRET}"
         echo "step_output=${{ inputs.reusable_input }}_processed" >> $GITHUB_OUTPUT
     - name: Process file
+      shell: bash # Must explicitly specify the shell for each step. https://github.com/orgs/community/discussions/18597
       run: |
         echo "Processing file: ${{ inputs.filename }}"
         echo "file processed" >> ${{ inputs.filename }}
