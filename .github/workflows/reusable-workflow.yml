@@ -11,9 +11,10 @@ on:
       HELLO_WORLD_SECRET:
         required: true
     outputs:
+      # Map the workflow output(s) to job output(s)
       reusable_output:
         description: 'Output from the reusable workflow'
-        type: string
+        value: ${{ jobs.reusable-workflow-job.job_output }}
 
 defaults:
   run:
@@ -24,7 +25,7 @@ jobs:
     runs-on: ubuntu-20.04
     # Map the job output(s) to step output(s)
     outputs:
-      reusable_output: ${{ steps.process-step.outputs.output }}
+      job_output: ${{ steps.process-step.outputs.step_output }}
     steps:
       - name: Process reusable input
         id: process-step
@@ -33,4 +34,4 @@ jobs:
         run: |
           echo "reusable_input=${{ inputs.reusable_input }}"
           echo "HELLO_WORLD_SECRET=${HELLO_WORLD_SECRET}"
-          echo "output=${{ inputs.reusable_input }}_processed" >> $GITHUB_OUTPUT
+          echo "step_output=${{ inputs.reusable_input }}_processed" >> $GITHUB_OUTPUT

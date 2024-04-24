@@ -1,4 +1,4 @@
-name: Hello World reusable GitHub actions
+name: Run me
 
 on:
   workflow_dispatch: # Manually trigger the workflow
