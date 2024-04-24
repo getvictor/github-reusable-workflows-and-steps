@@ -1,0 +1,28 @@
+name: Hello World reusable GitHub actions
+
+on:
+  workflow_dispatch: # Manually trigger the workflow
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  job-1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Hello World
+        run: echo "Hello World"
+
+  job-2:
+    needs: job-1
+    uses: ./.github/workflows/reusable-workflow.yml
+    with:
+      reusable_input: "job-2-input"
+
+  job-3:
+    needs: job-2
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print output
+        run: echo "reusable_output=${{ needs.job-2.outputs.reusable_output }}"

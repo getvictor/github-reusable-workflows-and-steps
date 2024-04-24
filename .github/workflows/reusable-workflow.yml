@@ -1,0 +1,36 @@
+name: Reusable workflow
+
+on:
+  workflow_call:
+    inputs:
+      reusable_input:
+        description: 'Input to the reusable workflow'
+        required: true
+        type: string
+    secrets:
+      HELLO_WORLD_SECRET:
+        required: true
+    outputs:
+      reusable_output:
+        description: 'Output from the reusable workflow'
+        type: string
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  reusable-workflow-job:
+    runs-on: ubuntu-20.04
+    # Map the job output(s) to step output(s)
+    outputs:
+      reusable_output: ${{ steps.process-step.outputs.output }}
+    steps:
+      - name: Process reusable input
+        id: process-step
+        env:
+          HELLO_WORLD_SECRET: ${{ secrets.HELLO_WORLD_SECRET }}
+        run: |
+          echo "reusable_input=${{ inputs.reusable_input }}"
+          echo "HELLO_WORLD_SECRET=${HELLO_WORLD_SECRET}"
+          echo "output=${{ inputs.reusable_input }}_processed" >> $GITHUB_OUTPUT
